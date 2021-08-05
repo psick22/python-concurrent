@@ -1,3 +1,6 @@
+import concurrent.futures
+import threading
+
 import requests
 import time
 
@@ -9,13 +12,11 @@ def request_url(url, session):
     # print(session.headers)
 
     with session.get(url) as response:
-        print(f'[Read Contents : {len(response.content)}, Status Code : {response.status_code} ] from {url}')
-
-
-pass
+        print(f'[Read Contents : {len(response.content)}, Status Code : {response.status_code} from {url}]')
 
 
 def request_all_urls(urls):
+    # 멀티쓰레드
     with requests.Session() as session:
         for url in urls:
             request_url(url, session)
